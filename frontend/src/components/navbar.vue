@@ -174,7 +174,8 @@ export default {
       this.$router.push("/")
       this.url = "home"
 
-    }, login() {
+    }, 
+    login() {
       this.$router.push("/login")
       this.url = "login"
 
