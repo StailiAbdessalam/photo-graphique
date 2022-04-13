@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="mb-6">
-                        <button type="button" class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Sign in</button>
+                        <button type="button" class="w-full px-3 py-4 text-white bg-gray-700 rounded-md focus:bg-black focus:outline-none">Sign in</button>
                     </div>
                     <p class="text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a @click="singin" class="text-indigo-400 focus:outline-none focus:underline cursor-pointer focus:text-indigo-500 dark:focus:border-indigo-800">Sign up</a>.</p>
                 </form>

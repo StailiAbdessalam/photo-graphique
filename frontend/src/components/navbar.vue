@@ -1,9 +1,9 @@
 <template>
-  <nav class="w-full px-6 py-3 bg-blue-700">
+  <nav class="w-full px-6 py-3 bg-gray-700">
     <div class="flex items-center justify-between">
       <!-- Header logo -->
       <div class="mx-3">
-        <img src="../image/horizontal_logo.png" alt="" />
+        <img class="h-16" src="../image/logo.png" alt="" />
       </div>
 
       <!-- search input -->
@@ -32,7 +32,7 @@
       </div>
 
 
-      <!-- Navbar -->
+
       <div class="hidden md:block">
         <ul class="flex space-x-8 text-sm font-sans">
           <li>
@@ -49,12 +49,12 @@
 
           <div class="flex">
             <li @click="login">
-              <a  class="text-md ml-2 border cursor-pointer hover:bg-blue-500 px-3 py-2 rounded text-white font-bold">Log
+              <a  class="text-md ml-2 border cursor-pointer hover:bg-white hover:text-black px-3 py-2 rounded text-white font-bold">Log
                 In</a>
             </li>
             <li @click="singin">
               <a
-                class="text-md ml-2 bg-white text-blue-500 hover:bg-blue-100 px-3 py-2 rounded font-bold cursor-pointer">Sign
+                class="text-md ml-2 bg-white border text-black hover:text-white hover:bg-gray-700 px-3 py-2 rounded font-bold cursor-pointer">Sign
                 Up</a>
             </li>
           </div>

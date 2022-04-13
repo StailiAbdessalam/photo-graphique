@@ -35,7 +35,7 @@
                                     <label for="password"
                                         class="text-sm text-gray-600 dark:text-gray-400">Password</label>
                                     <a href="#!"
-                                        class="text-sm text-gray-400 focus:outline-none focus:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-300">Forgot
+                                        class="text-sm text-gray-400  focus:outline-none focus:text-indigo-500 hover:text-indigo-500 dark:hover:text-indigo-300">Forgot
                                         password?</a>
                                 </div>
                                 <input type="password" name="password" id="password" placeholder="Your Password"
@@ -43,11 +43,11 @@
                             </div>
                             <div class="mb-6">
                                 <button type="button"
-                                    class="w-full px-3 py-4 text-white bg-indigo-500 rounded-md focus:bg-indigo-600 focus:outline-none">Sign
+                                    class="w-full px-3 py-4 text-white bg-gray-700 rounded-md focus:bg-black focus:outline-none">Sign
                                     up</button>
                             </div>
                             <p class="text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a @click="login"
-                                    class="text-indigo-400 focus:outline-none cursor-pointer focus:underline focus:text-indigo-500 dark:focus:border-indigo-800">Sign
+                                    class="text-indigo-400 focus:outline-none cursor-pointer focus:underline focus:text-black dark:focus:border-indigo-800">Sign
                                     in</a>.</p>
                         </form>
                     </div>
