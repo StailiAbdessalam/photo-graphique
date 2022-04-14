@@ -34,22 +34,23 @@
 
 
       <div class="hidden md:block">
-        <ul class="flex space-x-8 text-sm font-sans">
+        <ul class="flex space-x-12 text-sm font-sans">
           <li>
             <a @click="home"
               v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'home' || url === '', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'home' }">Accueil</a>
           </li>
           <li>
-            <a href="#"
-              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'regarder', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Poster' }">regarder</a>
+            <a @click="demandes"
+              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'Offre', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Offre' }">Offre</a>
           </li>
           <li><a href="#"
-              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'Poster', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Poster' }">Poster</a>
+              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'Poster', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Poster' }">offres</a>
           </li>
 
-          <div class="flex">
+          <div class="flex space-x-1">
             <li @click="login">
-              <a  class="text-md ml-2 border cursor-pointer hover:bg-white hover:text-black px-3 py-2 rounded text-white font-bold">Log
+              <a
+                class="text-md ml-2 border cursor-pointer hover:bg-white hover:text-black px-3 py-2 rounded text-white font-bold">Log
                 In</a>
             </li>
             <li @click="singin">
@@ -174,10 +175,16 @@ export default {
       this.$router.push("/")
       this.url = "home"
 
-    }, 
+    },
     login() {
       this.$router.push("/login")
       this.url = "login"
+
+
+    },
+        demandes() {
+      this.$router.push("/Offre")
+      this.url = "Offre"
 
 
     },
