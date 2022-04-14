@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('offres', function (Blueprint $table) {
             $table->id();
             $table->string('fullName');
             $table->string('email')->unique();
@@ -23,8 +23,14 @@ return new class extends Migration
 
         });
     }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
     public function down()
     {
-        Schema::dropIfExists('users');
+        //
     }
 };
