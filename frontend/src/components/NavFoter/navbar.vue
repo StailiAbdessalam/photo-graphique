@@ -3,7 +3,7 @@
     <div class="flex items-center justify-between">
       <!-- Header logo -->
       <div class="mx-3">
-        <img class="h-16" src="../image/logo.png" alt="" />
+        <img class="h-16" src="../../assets/logo_copy.png" alt="" />
       </div>
 
       <!-- search input -->
@@ -85,7 +85,7 @@
 
         <ul class="font-sans text-center">
           <li class="my-5 mb-10">
-            <img src="../image/horizontal_logo.png" alt="" />
+            <img src="../../assets/logo_copy.png" alt="" />
           </li>
           <li class="border-b-2 rounded-t-md hover:bg-blue-500 ">
             <a href="#" @click="isOpen = false" class="block h-full w-full my-4 pt-4 text-white">Accueil</a>

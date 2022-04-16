@@ -8,7 +8,7 @@
 
 
 <script>
-import register from '../components/register.vue'
+import register from '../components/Auth/register.vue'
 import '../../src/index.css'
 export default {
     name:"Sing-in",

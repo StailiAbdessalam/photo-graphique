@@ -1,26 +1,9 @@
 <template>
     <div>
         <footer class="bg-gray-700 w-full py-6 px-4">
-            <!-- marging just for display-->
-            <!-- <div class="px-4 pt-3 pb-4 border-b -mx-4 border-gray-400">
-                <div class="max-w-xl mx-auto">
-                    <h2 class="text-xl text-left inline-block font-semibold text-gray-800">Join Our Newsletter</h2>
-                    <p class="text-gray-700 text-xs pl-px">
-                        Latest news ,articles and updates montly delevered to your inbox.
-                    </p>
-                    <form action="#" class="mt-2">
-                        <div class="flex items-center">
-                            <input type="email"
-                                class="w-full px-2 py-4 mr-2  bg-gray-100 shadow-inner rounded-md border border-gray-400 focus:outline-none"
-                                required>
-                            <button class="bg-blue-600 text-gray-200 px-5 py-2 rounded shadow "
-                                style="margin-left: -7.8rem;">Sign Up</button>
-                        </div>
-                    </form>
-                </div>
-            </div> -->
+
             <div class="flex items-center justify-between my-4">
-                <img class="h-16" src="../image/logo.png" alt="" />
+                <img class="h-16" src="../../assets/logo_copy.png" alt="" />
                 <p class="inline-flex text-white px-2 pt-6">Built with
                     <svg fill="#e53e3e" viewBox="0 0 24 24" class="w-5 h-5 mx-1 pt-px text-red-600"
                         stroke="currentColor">

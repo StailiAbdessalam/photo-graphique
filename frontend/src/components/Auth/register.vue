@@ -25,7 +25,7 @@
                                 <label for="email" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Email
                                     Address</label>
                                 <input type="email" v-model="newUser.email" name="email" id="email" required
-                                     placeholder="you@company.com"
+                                    placeholder="you@company.com"
                                     class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
 
                             </div>
@@ -70,7 +70,7 @@
 
 <script>
 import axios from "axios";
-import Erour from "./erour/erourinput.vue";
+import Erour from "../erour/erourinput.vue";
 
 export default {
     name: 'sing-in',
@@ -108,9 +108,6 @@ export default {
                         this.valide = false;
                     }
                 })
-
-
-
         }
     },
 }
