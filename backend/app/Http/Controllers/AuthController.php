@@ -15,27 +15,24 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            $device = new User();
-            $device->fullName = $request->fullName;
-            $device->email = $request->email;
-            $device->phone = $request->phone;
-            $device->password = $request->password;
-            $result = $device->save();
-
+            $user = new User();
+            $user->fullName = $request->fullName;
+            $user->email = $request->email;
+            $user->phone = $request->phone;
+            $user->password = Hash::make($request->password);
+            $result = $user->save();
             echo json_encode($result);
         } catch (QueryException) {
             echo json_encode(false);
         }
-
     }
-
     public function Login(Request $request)
     {
         $user = User::where('email', $request->email)->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                return response()->json(['token' => $token], 200);
+                return json_encode(['token' => $token], 200);
             } else {
                 return response()->json(['error' => 'Password is incorrect'], 401);
             }
@@ -43,6 +40,7 @@ class AuthController extends Controller
             return response()->json(['error' => 'User is not found'], 401);
         }
     }
+
 
 
     // public function logout(Request $request)
