@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  Route::post('Authantification',[AuthController::class,'register']);
  Route::post('Login',[AuthController::class,'Login']);
  Route::post('register',[AuthController::class,'checkEmail']);
+ Route::get('getAllPost',[PostController::class,'getAll']);
