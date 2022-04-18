@@ -19,7 +19,7 @@ const routes = [
   },  {
     path: "/Offre",
     name: "Offre",
-    component: () =>import("../views/Post.vue"),
+    component: () =>import("../views/Offre.vue"),
   },
 
 ];
