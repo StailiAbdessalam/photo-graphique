@@ -1,11 +1,10 @@
 <template>
-  <nav class="w-full px-6 py-3 bg-gray-700">
+  <nav class="w-full  px-6 py-3 bg-gray-700">
     <div class="flex items-center justify-between">
       <!-- Header logo -->
       <div class="mx-3">
         <img class="h-16" src="../../assets/logo_copy.png" alt="" />
       </div>
-
       <!-- search input -->
       <div class="relative mx-auto text-gray-600 ">
         <input class="border-2 border-gray-300 bg-white lg:w-72 h-10 pl-2 pr-8 rounded-lg text-sm focus:outline-none"
@@ -41,19 +40,24 @@
           </li>
           <li>
             <a @click="demandes"
-              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'Offre', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Offre' }">Offre</a>
+              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'Offre', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Offre' }">Post</a>
           </li>
-          <li><a href="#"
-              v-bind:class="{ 'active border-b-2 text-white font-semibold  cursor-pointer border-white pb-1': url === 'Poster', 'active hover:border-b-2  text-white font-semibold cursor-pointer border-white pb-1': url != 'Poster' }">offres</a>
-          </li>
-
           <div class="flex space-x-1">
-            <li @click="login">
+            <li v-if="!isLogged" @click="login">
               <a
-                class="text-md ml-2 border cursor-pointer hover:bg-white hover:text-black px-3 py-2 rounded text-white font-bold">Log
+                class="text-md ml-2 border cursor-pointer hover:bg-white hover:text-black px-3 py-2 rounded text-white font-bold">sign
                 In</a>
             </li>
-            <li @click="singin">
+            <form action="">
+              <li v-if="isLogged" @click="logout">
+                <a
+                  class="text-md ml-2 border cursor-pointer hover:bg-white hover:text-black px-3 py-2 rounded text-white font-bold">
+                  Log
+                  out</a>
+              </li>
+
+            </form>
+            <li v-if="!isLogged" @click="singin">
               <a
                 class="text-md ml-2 bg-white border text-black hover:text-white hover:bg-gray-700 px-3 py-2 rounded font-bold cursor-pointer">Sign
                 Up</a>
@@ -104,7 +108,6 @@
               Up</a>
           </li>
         </ul>
-
         <div class="follow">
           <p class="italic font-sans text-sm text-white">
             follow us:
@@ -156,13 +159,20 @@
 <script>
 export default {
   name: "nav-bar",
+  inject:['setLogin','isLogin'],
   data() {
     return {
       isOpen: false,
       url: "",
+      token: localStorage.getItem('token'),
+      isLogged:this.isLogin,
     };
   },
   methods: {
+    logout() {
+      localStorage.removeItem('token');
+      this.setLogin(false);
+    },
     drawer() {
       this.isOpen = !this.isOpen;
     },
@@ -179,34 +189,28 @@ export default {
     login() {
       this.$router.push("/login")
       this.url = "login"
-
-
     },
-        demandes() {
+    demandes() {
       this.$router.push("/Offre")
       this.url = "Offre"
-
-
     },
+    log() {
+      if (localStorage.getItem("token") == null) {
+        this.$router.push("/login")
+        this.url = "login"
+      }
+      else {
+        this.$router.push("/Offre")
+        this.url = "Offre"
+      }
+    }
 
   },
-  // watch: {
-  //     isOpen: {
-  //         immediate: true,
-  //         handler(isOpen) {
-  //             if (process.client) {
-  //                 if (isOpen)
-  //                     document.body.style.setProperty("overflow", "hidden");
-  //                 else document.body.style.removeProperty("overflow");
-  //             }
-  //         },
-  //     },
-  // },
   mounted() {
     document.addEventListener("keydown", (e) => {
       if (e.keyCode == 27 && this.isOpen) this.isOpen = false;
     })
-
+      
   },
 };
 </script>

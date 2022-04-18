@@ -47,6 +47,7 @@
 
 // import Secss from "./erour/seccuss.vue";
 export default {
+    inject: ['setLogin'],
     name: "Log-in",
     components: {
         // Secss
@@ -55,7 +56,7 @@ export default {
         return {
             data: {
                 email: "",
-                password: ""
+                password: "",
             }
         }
     },
@@ -67,8 +68,8 @@ export default {
             Axios.post("http://127.0.0.1:8000/api/Login", this.data).then(res => {
                 console.log(res);
                 if (res.status == 200) {
-                    console.log(res);
                     localStorage.setItem("token", res.data.token)
+                    this.setLogin(true)
                     this.$router.push("/")
                 }
             })
