@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('Prix');
             $table->string('Type');
             $table->text('description');
-            $table->timestamp("create_at");
+            $table->timestamps();
         });
     }
 
