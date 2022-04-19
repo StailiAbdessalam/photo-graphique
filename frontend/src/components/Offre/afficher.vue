@@ -1,8 +1,9 @@
 <template>
-    <div class="h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
-        <div v-for="post in posts" :key="post.id" class="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
+    <div
+        class="flex flex-wrap gap-5 h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
+        <div v-for="post in posts" :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
             <div
-                class="max-w-sm min-w-sm bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
+                class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
                 <!-- nom de client qui post cette post -->
                 <h3 class="mb-3 text-xl font-bold text-indigo-600">Abdessalam Staili</h3>
                 <div class="relative">
@@ -10,10 +11,12 @@
                     <img class="w-full rounded-xl" src="../../assets/back.png" alt="Colors" />
                     <!-- prix de site pieces -->
                     <p
-                        class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">{{post.Prix}}$</p>
+                        class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
+                        {{ post.Prix }}$</p>
                 </div>
                 <!-- description -->
-                <h4 class="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">{{post.Title}}: <br> <span class="font-normal">{{post.description}}</span> </h4>
+                <h4 class="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">{{ post.Title }}: <br> <span
+                        class="font-normal">{{ post.description }}</span> </h4>
                 <div class="my-4">
                     <div class="flex space-x-1 items-center">
                         <span>
@@ -35,7 +38,7 @@
                             </svg>
                         </span>
                         <!-- type demande or offre -->
-                        <p>{{post.Type}}</p>
+                        <p>{{ post.Type }}</p>
                     </div>
                     <!-- <div class="flex space-x-1 items-center">
                         <span>
@@ -45,7 +48,7 @@
                                     d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
                             </svg>
                         </span> -->
-                        <!-- <p>nouveau</p> -->
+                    <!-- <p>nouveau</p> -->
                     <!-- </div> -->
                     <button class="mt-4 text-xl w-full text-white bg-gray-600 py-2 rounded-xl shadow-lg">Buy
                         Lesson</button>
@@ -53,13 +56,10 @@
             </div>
         </div>
 
-
-
-
-        <div @click="affich" class="fixed right-1 top-20">
+        <div @click="affich" v-if="isLogged" class="fixed right-1 top-20">
             <div class="m-3">
                 <button
-                    class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                    class="bg-green-500 text-white font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">
                     <span class="mr-2">Add Post</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                         <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
@@ -67,31 +67,30 @@
                 </button>
             </div>
         </div>
-
-
-
-
-
-
-
-
+        <div>
+            <Add   @close="fermer" v-if="close" class="form-fixed" />
+            <Filter v-if="isLogged" class="filter" />
+        </div>
         <!-- <button  class="p-2 pl-5 pr-5 bg-transparent border-2 border-gray-500 text-gray-500 text-lg rounded-lg hover:bg-gray-500 hover:text-gray-100 focus:border-4 focus:border-gray-300">Secondary</button> -->
-        <Add @close="fermer" v-if="close" class="form-fixed" />
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Filter from "./Filter.vue"
 import Add from "./addOffre.vue";
 export default {
+    inject:['setLogin','isLogin'],
     name: "affich-offre",
     components: {
-        Add
+        Add,
+        Filter
     },
     data() {
         return {
             close: false,
             posts: "",
+            isLogged:this.isLogin,
         }
     },
     methods: {
@@ -116,7 +115,13 @@ export default {
 <style scoped>
 .form-fixed {
     position: fixed;
-    top: -86px;
-    right: 0;
+    top: 0%;
+    left: 0%;
+}
+
+.filter {
+    position: fixed;
+    right: 17px;
+    top: 125px;
 }
 </style>
