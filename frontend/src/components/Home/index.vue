@@ -5,14 +5,16 @@
             <div class="flex bg-gradient-to-tr from-gray-300 to-gray-200" style="height:630px;">
                 <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
                     <div>
-                        <h2 class="text-3xl font-semibold text-gray-800 md:text-4xl">Acheté tout les materiales de  <span
+                        <h2 class="text-3xl font-semibold text-gray-800 md:text-4xl">Acheté tout les materiales de <span
                                 class="text-indigo-600">photographier</span></h2>
                         <p class="mt-2 text-sm text-gray-500 md:text-base">Lorem ipsum dolor sit amet, consectetur
                             adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id
                             necessitatibus odio quam quasi, quibusdam rem tempora voluptates. Cumque debitis
-                            dignissimos id quam vel! adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id
+                            dignissimos id quam vel! adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit
+                            harum id
                             necessitatibus odio quam quasi, quibusdam rem tempora voluptates. Cumque debitis
-                            dignissimos id quam vel! adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit harum id
+                            dignissimos id quam vel! adipisicing elit. Blanditiis commodi cum cupiditate ducimus, fugit
+                            harum id
                             necessitatibus odio quam quasi, quibusdam rem tempora voluptates. Cumque debitis
                             dignissimos id quam vel!</p>
                         <div class="flex justify-center lg:justify-start mt-6">
@@ -52,7 +54,7 @@ export default {
 <style>
 .home {
     background-size: cover;
-
+    padding-top: 87px;
 }
 
 #top {
