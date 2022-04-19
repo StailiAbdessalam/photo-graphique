@@ -1,7 +1,7 @@
 <template>
 
 <div>
-  <Nav />
+  <Nav class="fixed z-10" />
   <router-view />
   <!-- <LottieAnimation/> -->
   <Footer />
