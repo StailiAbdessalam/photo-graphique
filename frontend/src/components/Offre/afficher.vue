@@ -101,7 +101,7 @@ export default {
             this.close = false;
         },
         getAllPost() {
-            axios.get(" http://127.0.0.1:8000/api/getAllPost").then(res => {
+            axios.get("http://127.0.0.1:8000/api/getAllPost").then(res => {
                 this.posts = res.data
             });
         },
