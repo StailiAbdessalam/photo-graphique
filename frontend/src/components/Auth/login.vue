@@ -43,15 +43,11 @@
     </div>
 </template>
 
-<script>import Axios from "axios"
-
-// import Secss from "./erour/seccuss.vue";
+<script>
+import Axios from "axios";
 export default {
     inject: ['setLogin'],
     name: "Log-in",
-    components: {
-        // Secss
-    },
     data() {
         return {
             data: {
@@ -69,8 +65,10 @@ export default {
                 console.log(res);
                 if (res.status == 200) {
                     localStorage.setItem("token", res.data.token)
+                    console.log(res.data.token);
                     this.setLogin(true)
                     this.$router.push("/")
+                    localStorage.setItem("id",res.data.id)
                 }
             })
         }
