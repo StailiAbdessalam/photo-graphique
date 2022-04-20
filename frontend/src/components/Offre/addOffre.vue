@@ -27,7 +27,7 @@
                         class="flex flex-col justify-center">
                         <label class=" m-2 text-white font-medium">image</label>
                         <div class="container mx-auto h-full flex flex-col justify-center items-center">
-                            <input @change="processFile($event)" type="file" accept=".png,.jpg,.jpeg"
+                            <input @change="uploadImage" type="file" accept=".png,.jpg,.jpeg"
                                 :maxFileSize="1048576000000" id="multi-upload-input" multiple />
                         </div>
                         <div class="col-span-6 sm:col-span-4">
@@ -81,14 +81,12 @@
                         </div>
                         <label class="text-white font-medium">title</label>
                         <input v-model="newPost.Title" class="mb-3 px-2 py-1.5
-                        
           mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
           focus:outline-none
           focus:border-sky-500
           focus:ring-1
           focus:ring-sky-500
           focus:invalid:border-red-500 focus:invalid:ring-red-500" type="text" name="username" placeholder="wahyusa">
-
                         <label class="text-white font-medium">description</label>
                         <textarea v-model="newPost.description" class="
           mb-3 mt-1 block w-full px-2 py-1.5 border border-gray-300 rounded-md text-sm shadow-sm placeholder-gray-400
@@ -98,7 +96,7 @@
           focus:ring-sky-500
           focus:invalid:border-red-500 focus:invalid:ring-red-500" name="messages"
                             placeholder="Write something"></textarea>
-                        <input id="login_process_state"
+                        <input @click="sendImage" id="login_process_state"
                             class="px-4 py-1.5 hover:cursor-pointer rounded-md shadow-lg bg-gradient-to-r from-pink-600 to-red-600 font-medium text-gray-100 block transition duration-300"
                             type="submit" value="Sending :)">
                     </form>
@@ -110,18 +108,16 @@
 
 
 
-<script>import axios from "axios";
+<script>
+import axios from "axios";
+import * as fireStorage from "firebase/storage";
+//  import {firebaseConfig} from "../../main";
+
 export default {
     name: "add-item",
     methods: {
-        processFile(event) {
-            this.newPost.pucture = event.target.files[0];
-            this.url = URL.createObjectURL(this.newPost.pucture);
-            console.log(this.newPost.pucture);
-            let formData = new FormData();
-            formData.append('image', this.newPost.pucture);
-            this.AjouterPost(formData);
-
+        uploadImage(e) {
+            this.imageName = e.target.files[0];
         },
         plus() {
             let count = parseInt(document.getElementById('item_count').value);
@@ -138,22 +134,42 @@ export default {
         typefun() {
             document.getElementById("vehicle_id").value == "Offre" ? this.offre = true : this.offre = false
         },
-        AjouterPost() {
-            axios.post(" http://127.0.0.1:8000/api/AddPost", this.newPost).then(res => {
-                console.log(res);
-            })
-        }
+        sendImage() {
+            let file = this.imageName;
+            let newname = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
+            let storageRef = fireStorage.ref(fireStorage.getStorage(), "images/" + newname+".png");
+            fireStorage.uploadBytes(storageRef, file).then(function () {
+                console.log(newname);
+            });
+            axios.post("http://127.0.0.1:8000/api/AddPost", {
+                user_id: this.newPost.user_id,
+                Title: this.newPost.Title,
+                image: newname,
+                Prix: this.newPost.Prix,
+                Type: this.newPost.Type,
+                description: this.newPost.description,
+            }).then(response => {
+                console.log(response);
+                this.$emit('close', false);
+                
+            }).catch(error => {
+                console.log(error);
+            });
+        },
     },
+
+// 
     data() {
         return {
             newPost: {
+                user_id: localStorage.getItem("id"),
                 Prix: 0,
                 Title: '',
-                pucture: '',
+                image: '',
                 Type: '',
             },
             offre: false,
-            url: '',
+            imageName: '',
         }
     },
 
