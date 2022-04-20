@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Database\QueryException;
@@ -32,7 +31,8 @@ class AuthController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-                return json_encode(['token' => $token], 200);
+                // return json_encode(['token' => $token], 200);
+                return response()->json(['id' => $user->id, 'token' => $token]);
             } else {
                 return response()->json(['error' => 'Password is incorrect'], 401);
             }
