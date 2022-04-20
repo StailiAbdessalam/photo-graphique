@@ -11,7 +11,8 @@
     "@lottiefiles/lottie-player": "^1.5.6",
     "@lottiefiles/vue-lottie-player": "^1.0.5",
     "core-js": "^3.8.3",
-    "lottie-vuejs": "^0.4.0",
+    "firebase": "^9.6.11",
+    "lottie-vuejs": "^0.1.0",
     "vue": "^3.2.13",
     "vue-axios": "^3.4.1",
     "vue-router": "4",
@@ -42,7 +43,9 @@
     "parserOptions": {
       "parser": "@babel/eslint-parser"
     },
-    "rules": {}
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "browserslist": [
     "> 1%",
