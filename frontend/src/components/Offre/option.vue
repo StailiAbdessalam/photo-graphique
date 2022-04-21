@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Update  class="form-fixed" v-if="Update"  />
         <div class="group inline-block">
             <button
                 class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
@@ -13,7 +14,7 @@
             </button>
             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
   transition duration-150 ease-in-out origin-top min-w-32">
-                <li class="rounded-sm px-3 py-1 hover:bg-gray-100">Modifier</li>
+                <li @click="Update=true" class="rounded-sm px-3 py-1 hover:bg-gray-100">Modifier</li>
                 <li @click="popUpDelete()" class="rounded-sm px-3 py-1 hover:bg-gray-100">Supprimer</li>
                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                 </li>
@@ -23,6 +24,7 @@
 </template>
 <script>
 import axios from "axios"
+import Update from "./update.vue"
 import { computed } from "@vue/reactivity";
 import * as fireStorage from "firebase/storage";
 
@@ -30,40 +32,20 @@ export default {
 
     inject: ['setDelete'],
     name: 'opt-ion',
+    data() {
+        return {
+            Update: false,
+        }
+    },
+    components: {
+        Update,
+    },
     props: {
         setId: {
             type: Function,
             required: true
         },
-        id : String
-    },
-    methods: {
-        popUpDelete() {
-            this.setId(this.id)
-            this.setDelete(true)
-        },
-        async update() {
-            console.log('remiogheoighaimhabdessalam staili');
-            try {
-                this.send = true;
-                let file = this.imageName;
-                let newname = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
-                let storageRef = fireStorage.ref(fireStorage.getStorage(), "images/" + newname + ".png");
-                const post = this.newPost;
-                await fireStorage.uploadBytes(storageRef, file).then(function () {
-                    console.log("uploaded");
-                });
-                await axios.put(`http://127.0.0.1:8000/api/AddPost/${this.id}`, {
-                    ...post,
-                    image: newname,
-                })
-                this.$emit('close', false);
-                this.send = false
-                this.$emit("getAllPost");
-            } catch (e) {
-                console.log(e)
-            }
-        },
+        id: String
     },
 }
 
@@ -73,23 +55,18 @@ export default {
 li>ul {
     transform: translatex(100%) scale(0)
 }
-
 li:hover>ul {
     transform: translatex(101%) scale(1)
 }
-
 li>button svg {
     transform: rotate(-90deg)
 }
-
 li:hover>button svg {
     transform: rotate(-270deg)
 }
-
 .group:hover .group-hover\:scale-100 {
     transform: scale(1)
 }
-
 .group:hover .group-hover\:-rotate-180 {
     transform: rotate(180deg)
 }
@@ -100,5 +77,11 @@ li:hover>button svg {
 
 .min-w-32 {
     min-width: 8rem
+}
+.form-fixed{
+    position: fixed;
+    top: -10%;
+    left: 0%;
+    
 }
 </style>

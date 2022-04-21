@@ -1,25 +1,45 @@
 <template>
     <div
         class="flex flex-wrap gap-5 h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
-        <div v-for="post in posts" id="haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" :key="post.id"
-            class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
-            <VDelete @getAllPost="getAllPost" class="" v-if="isDeleted" :id="id" />
+        <div v-for="post in posts" id="haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+            :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
+            <VDelete @close="fermer" @getAllPost="getAllPost" class="" v-if="isDeleted" :id="id" />
             <div
                 class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
                 <!-- nom de client qui post cette post -->
                 <div class="flex gap-7 z-20 relative">
                     <h3 class="mb-3 text-xl font-bold text-indigo-600">Abdessalam Staili</h3>
-                    <Option @close="fermer" @getAllPost="getAllPost" :id="post.id" :set-id="setId" />
+                    <!-- <Option @close="fermer" @getAllPost="getAllPost" :id="post.id" :set-id="setId" /> -->
+                    <div>
+                        <!-- <Update class="form-fixed" v-if="Update" /> -->
+                        <div class="group inline-block">
+                            <button
+                                class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
+                                <span class="pr-1 font-semibold flex-1">Option</span>
+                                <span>
+                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+  transition duration-150 ease-in-out origin-top min-w-32">
+                                <li @click="Update = true" class="rounded-sm px-3 py-1 hover:bg-gray-100">Modifier</li>
+                                <li @click="popUpDelete()" class="rounded-sm px-3 py-1 hover:bg-gray-100">Supprimer</li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="relative">
-                    <!-- image de chause qui post -->
                     <img class="w-full rounded-xl" src="../../assets/back.png" alt="Colors" />
-                    <!-- prix de site pieces -->
                     <p
                         class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
                         {{ post.Prix }}$</p>
                 </div>
-                <!-- description -->
                 <h4 class="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">{{ post.Title }}: <br> <span
                         class="font-normal">{{ post.description }}</span> </h4>
                 <div class="my-4">
@@ -31,7 +51,6 @@
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </span>
-                        <!-- time de post -->
                         <p>1:34:23 Minutes</p>
                     </div>
                     <div class="flex space-x-1 items-center">
@@ -53,14 +72,18 @@
             <div class="m-3">
                 <button
                     class="bg-green-500 text-white font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-white hover:text-black shadow-md py-2 px-6 inline-flex items-center">
-                    <span class="mr-2">Add Post</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
-                    </svg>
+                    <span class="mr-2" id="button-7">
+                        <div id="dub-arrow">
+                            <img
+                                src="https://github.com/atloomer/atloomer.github.io/blob/master/img/iconmonstr-arrow-48-240.png?raw=true" />
+                        </div>
+                        <a>Add Post</a>
+                    </span>
                 </button>
             </div>
         </div>
         <div>
+
             <Add @getAllPost="getAllPost" @close="fermer" v-if="close" class="form-fixed" />
             <Filter v-if="isLogged" class="filter" />
         </div>
@@ -73,6 +96,7 @@ import axios from 'axios';
 import Filter from "./Filter.vue"
 import Add from "./addOffre.vue";
 import VDelete from "./ValideDelete.vue";
+
 import { computed } from "@vue/reactivity";
 
 export default {
@@ -84,6 +108,7 @@ export default {
         Add,
         Filter,
         Option,
+
     },
     provide() {
         return {
@@ -98,7 +123,8 @@ export default {
             posts: "",
             isLogged: this.isLogin,
             isDeleted: false,
-            id:null
+            id: null,
+            update: false
         }
     },
     methods: {
@@ -142,5 +168,57 @@ export default {
     position: fixed;
     right: 17px;
     top: 125px;
+}
+
+
+
+
+#button-7 {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#button-7 a {
+    position: relative;
+    left: 0;
+    transition: all .25s ease-Out;
+}
+
+#dub-arrow {
+    width: 100%;
+    height: 100%;
+
+    left: -200px;
+    position: absolute;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .25s ease-Out;
+    bottom: 0;
+}
+
+#button-7 img {
+    width: 20px;
+    height: auto;
+}
+
+#button-7:hover #dub-arrow {
+    left: 0;
+}
+
+#button-7:hover a {
+    left: 150px;
+}
+
+@media screen and (min-width:1000px) {
+    h1 {
+        font-size: 2.2em;
+    }
+
+    #container {
+        width: 50%;
+    }
 }
 </style>
