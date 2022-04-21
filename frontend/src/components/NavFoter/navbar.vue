@@ -14,9 +14,6 @@
           </svg>
         </button>
       </div>
-
-
-
       <div class="hidden md:block">
         <ul class="flex space-x-12 text-sm font-sans">
           <li>
@@ -144,13 +141,13 @@
 <script>
 export default {
   name: "nav-bar",
-  inject:['setLogin','isLogin'],
+  inject: ['setLogin', 'isLogin'],
   data() {
     return {
       isOpen: false,
       url: "",
       token: localStorage.getItem('token'),
-      isLogged:this.isLogin,
+      isLogged: this.isLogin,
     };
   },
   methods: {
@@ -196,7 +193,7 @@ export default {
     document.addEventListener("keydown", (e) => {
       if (e.keyCode == 27 && this.isOpen) this.isOpen = false;
     })
-      
+
   },
 };
 </script>

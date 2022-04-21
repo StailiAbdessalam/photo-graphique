@@ -1,11 +1,16 @@
 <template>
     <div
         class="flex flex-wrap gap-5 h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
-        <div v-for="post in posts" :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
+        <div v-for="post in posts" id="haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" :key="post.id"
+            class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
+            <VDelete class="" v-if="isDeleted" :id="id" />
             <div
                 class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
                 <!-- nom de client qui post cette post -->
-                <h3 class="mb-3 text-xl font-bold text-indigo-600">Abdessalam Staili</h3>
+                <div class="flex gap-7 z-20 relative">
+                    <h3 class="mb-3 text-xl font-bold text-indigo-600">Abdessalam Staili</h3>
+                    <Option @close="fermer" @getAllPost="getAllPost" :id="post.id" :set-id="setId" />
+                </div>
                 <div class="relative">
                     <!-- image de chause qui post -->
                     <img class="w-full rounded-xl" src="../../assets/back.png" alt="Colors" />
@@ -37,25 +42,13 @@
                                     d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </span>
-                        <!-- type demande or offre -->
                         <p>{{ post.Type }}</p>
                     </div>
-                    <!-- <div class="flex space-x-1 items-center">
-                        <span>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 mb-1.5" fill="none"
-                                viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-                            </svg>
-                        </span> -->
-                    <!-- <p>nouveau</p> -->
-                    <!-- </div> -->
                     <button class="mt-4 text-xl w-full text-white bg-gray-600 py-2 rounded-xl shadow-lg">Buy
                         Lesson</button>
                 </div>
             </div>
         </div>
-
         <div @click="affich" v-if="isLogged" class="fixed right-1 top-20">
             <div class="m-3">
                 <button
@@ -68,41 +61,67 @@
             </div>
         </div>
         <div>
-            <Add   @close="fermer" v-if="close" class="form-fixed" />
+            <Add @getAllPost="getAllPost" @close="fermer" v-if="close" class="form-fixed" />
             <Filter v-if="isLogged" class="filter" />
         </div>
-        <!-- <button  class="p-2 pl-5 pr-5 bg-transparent border-2 border-gray-500 text-gray-500 text-lg rounded-lg hover:bg-gray-500 hover:text-gray-100 focus:border-4 focus:border-gray-300">Secondary</button> -->
     </div>
 </template>
 
 <script>
+import Option from './option.vue';
 import axios from 'axios';
 import Filter from "./Filter.vue"
 import Add from "./addOffre.vue";
+import VDelete from "./ValideDelete.vue";
+import { computed } from "@vue/reactivity";
+
 export default {
-    inject:['setLogin','isLogin'],
+    inject: ['setLogin', 'isLogin', 'setDelete', 'isDeleted'],
+
     name: "affich-offre",
     components: {
+        VDelete,
         Add,
-        Filter
+        Filter,
+        Option,
+    },
+    provide() {
+        return {
+            isDeleted: computed(() => this.isDeleted),
+            setDelete: this.setDelete,
+        }
     },
     data() {
         return {
+            deletePost: false,
             close: false,
             posts: "",
-            isLogged:this.isLogin,
+            isLogged: this.isLogin,
+            isDeleted: false,
+            id:null
         }
     },
     methods: {
+        setId(id) {
+            console.log(this.id)
+            this.id = id;
+        },
+        setDelete(isDeleted) {
+            this.isDeleted = isDeleted
+
+        },
         affich() {
             this.close = true;
         },
         fermer() {
             this.close = false;
+
         },
+
         getAllPost() {
             axios.get("http://127.0.0.1:8000/api/getAllPost").then(res => {
-                this.posts = res.data
+                this.posts = res.data.reverse();
+                console.log(this.posts);
             });
         },
     },

@@ -102,6 +102,12 @@
                     </form>
                 </div>
             </section>
+            <div v-if="send"
+                class="bg-black bg-opacity-60 w-full h-screen fixed top-0 flex justify-center items-center">
+                <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_c6vz1igk.json"
+                    background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay>
+                </lottie-player>
+            </div>
         </div>
     </div>
 </template>
@@ -115,6 +121,20 @@ import * as fireStorage from "firebase/storage";
 
 export default {
     name: "add-item",
+    data() {
+        return {
+            newPost: {
+                user_id: localStorage.getItem("id"),
+                Prix: 0,
+                Title: '',
+                image: '',
+                Type: '',
+            },
+            offre: false,
+            imageName: '',
+            send: false,
+        }
+    },
     methods: {
         uploadImage(e) {
             this.imageName = e.target.files[0];
@@ -134,47 +154,28 @@ export default {
         typefun() {
             document.getElementById("vehicle_id").value == "Offre" ? this.offre = true : this.offre = false
         },
-        sendImage() {
-            let file = this.imageName;
-            let newname = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
-            let storageRef = fireStorage.ref(fireStorage.getStorage(), "images/" + newname+".png");
-            fireStorage.uploadBytes(storageRef, file).then(function () {
-                console.log(newname);
-            });
-            axios.post("http://127.0.0.1:8000/api/AddPost", {
-                user_id: this.newPost.user_id,
-                Title: this.newPost.Title,
-                image: newname,
-                Prix: this.newPost.Prix,
-                Type: this.newPost.Type,
-                description: this.newPost.description,
-            }).then(response => {
-                console.log(response);
+        async sendImage() {
+            try {
+                this.send = true;
+                let file = this.imageName;
+                let newname = Math.random().toString(36).slice(2) + new Date().getTime().toString(36);
+                let storageRef = fireStorage.ref(fireStorage.getStorage(), "images/" + newname + ".png");
+                const post = this.newPost;
+                await fireStorage.uploadBytes(storageRef, file).then(function () {
+                    console.log("uploaded");
+                });
+                await axios.post("http://127.0.0.1:8000/api/AddPost", {
+                    ...post,
+                    image: newname,
+                })
                 this.$emit('close', false);
-                
-            }).catch(error => {
-                console.log(error);
-            });
+                this.send = false
+                this.$emit("getAllPost");
+            } catch (e) {
+                console.log(e)
+            }
         },
     },
-
-// 
-    data() {
-        return {
-            newPost: {
-                user_id: localStorage.getItem("id"),
-                Prix: 0,
-                Title: '',
-                image: '',
-                Type: '',
-            },
-            offre: false,
-            imageName: '',
-        }
-    },
-
-
-
 }
 
 
