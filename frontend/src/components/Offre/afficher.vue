@@ -3,7 +3,7 @@
         class="flex flex-wrap gap-5 h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
         <div v-for="post in posts" id="haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa" :key="post.id"
             class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
-            <VDelete class="" v-if="isDeleted" :id="id" />
+            <VDelete @getAllPost="getAllPost" class="" v-if="isDeleted" :id="id" />
             <div
                 class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
                 <!-- nom de client qui post cette post -->

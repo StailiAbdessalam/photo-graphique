@@ -50,7 +50,8 @@ export default {
             axios.delete(`http://127.0.0.1:8000/api/deletPost/${this.id}`)
                 .then(res => {
                     console.log(res);
-                    ev.target.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
+                   this.$emit("getAllPost");
+                   this.close();
                 })
                 .catch(err => {
                     console.log(err)
