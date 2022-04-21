@@ -30,7 +30,8 @@ class PostController extends Controller
         Post::destroy($id);
     }
 
-    public function UpdatePost(Request $request , $id){
+    public function UpdatePost(Request $request, $id)
+    {
         $Post = Post::find($id);
         $Post->user_id = $request->user_id;
         $Post->Title = $request->Title;
@@ -41,5 +42,4 @@ class PostController extends Controller
         $result = $Post->save();
         echo json_encode($result);
     }
-
 }
