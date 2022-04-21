@@ -27,11 +27,12 @@ export default {
      setLogin(login) {
       this.isLogin = login
     },
+   
   },
     provide() {
     return {
       isLogin: computed(() => this.isLogin),
-      setLogin: this.setLogin
+      setLogin: this.setLogin,
 
     }
   },
