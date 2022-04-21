@@ -39,7 +39,6 @@
 <script>
 import axios from "axios";
 export default {
-    inject: ['setDelete'],
     props: {
         id: String
     },
@@ -58,8 +57,8 @@ export default {
                 })
         },
         close() {
-            this.setDelete(false)
-        }
+            this.$emit('close', false);
+            }
     },
 }
 </script>
