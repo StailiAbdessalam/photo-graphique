@@ -3,15 +3,12 @@
         class="flex flex-wrap gap-5 h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
         <div v-for="post in posts" id="haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
             :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
-            <VDelete @close="fermer" @getAllPost="getAllPost" class="" v-if="isDeleted" :id="id" />
+            <VDelete @close="DEletepop" @getAllPost="getAllPost" v-if="isDeleted" :id="id" />
             <div
                 class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
-                <!-- nom de client qui post cette post -->
                 <div class="flex gap-7 z-20 relative">
                     <h3 class="mb-3 text-xl font-bold text-indigo-600">Abdessalam Staili</h3>
-                    <!-- <Option @close="fermer" @getAllPost="getAllPost" :id="post.id" :set-id="setId" /> -->
                     <div>
-                        <!-- <Update class="form-fixed" v-if="Update" /> -->
                         <div class="group inline-block">
                             <button
                                 class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
@@ -26,8 +23,10 @@
                             </button>
                             <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
   transition duration-150 ease-in-out origin-top min-w-32">
-                                <li @click="Update = true" class="rounded-sm px-3 py-1 hover:bg-gray-100">Modifier</li>
-                                <li @click="popUpDelete()" class="rounded-sm px-3 py-1 hover:bg-gray-100">Supprimer</li>
+                                <li @click="popUpUpdate(post.id)" class="rounded-sm px-3 py-1 hover:bg-gray-100">
+                                    Modifier</li>
+                                <li @click="popUpDelete(post.id)" class="rounded-sm px-3 py-1 hover:bg-gray-100">
+                                    Supprimer</li>
                                 <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
                                 </li>
                             </ul>
@@ -83,7 +82,7 @@
             </div>
         </div>
         <div>
-
+            <Update @close="UpdatepopUp" v-if="update" :id="id" />
             <Add @getAllPost="getAllPost" @close="fermer" v-if="close" class="form-fixed" />
             <Filter v-if="isLogged" class="filter" />
         </div>
@@ -91,40 +90,29 @@
 </template>
 
 <script>
-import Option from './option.vue';
+import Update from "./update.vue"
 import axios from 'axios';
 import Filter from "./Filter.vue"
 import Add from "./addOffre.vue";
 import VDelete from "./ValideDelete.vue";
-
-import { computed } from "@vue/reactivity";
-
 export default {
-    inject: ['setLogin', 'isLogin', 'setDelete', 'isDeleted'],
+    inject: ['setLogin', 'isLogin'],
 
     name: "affich-offre",
     components: {
         VDelete,
         Add,
         Filter,
-        Option,
-
-    },
-    provide() {
-        return {
-            isDeleted: computed(() => this.isDeleted),
-            setDelete: this.setDelete,
-        }
+        Update
     },
     data() {
         return {
-            deletePost: false,
             close: false,
             posts: "",
             isLogged: this.isLogin,
             isDeleted: false,
             id: null,
-            update: false
+            update: false,
         }
     },
     methods: {
@@ -132,22 +120,31 @@ export default {
             console.log(this.id)
             this.id = id;
         },
-        setDelete(isDeleted) {
-            this.isDeleted = isDeleted
-
+        popUpDelete(id) {
+            this.isDeleted = true
+            this.id = id;
+        },
+        popUpUpdate(id) {
+            this.update = true;
+            this.id = id;
         },
         affich() {
             this.close = true;
         },
         fermer() {
             this.close = false;
-
         },
+        UpdatepopUp(isUpdate) {
+            this.update = isUpdate;
+        },
+        DEletepop(isDeleted) {
+            this.isDeleted = isDeleted
+        },
+
 
         getAllPost() {
             axios.get("http://127.0.0.1:8000/api/getAllPost").then(res => {
                 this.posts = res.data.reverse();
-                console.log(this.posts);
             });
         },
     },
@@ -220,5 +217,46 @@ export default {
     #container {
         width: 50%;
     }
+}
+
+
+
+li>ul {
+    transform: translatex(100%) scale(0)
+}
+
+li:hover>ul {
+    transform: translatex(101%) scale(1)
+}
+
+li>button svg {
+    transform: rotate(-90deg)
+}
+
+li:hover>button svg {
+    transform: rotate(-270deg)
+}
+
+.group:hover .group-hover\:scale-100 {
+    transform: scale(1)
+}
+
+.group:hover .group-hover\:-rotate-180 {
+    transform: rotate(180deg)
+}
+
+.scale-0 {
+    transform: scale(0)
+}
+
+.min-w-32 {
+    min-width: 8rem
+}
+
+.form-fixed {
+    position: fixed;
+    top: -10%;
+    left: 0%;
+
 }
 </style>
