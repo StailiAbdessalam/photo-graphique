@@ -2,6 +2,8 @@ import { createApp } from "vue";
 import router from "./router/index";
 import App from "./App.vue";
 import Vue3Lottie from "vue3-lottie";
+import "./index.css";
+
 
 import * as firebase from "firebase/app";
 import "firebase/storage"
@@ -17,7 +19,7 @@ export const firebaseConfig = {
     appId: "1:739532038732:web:e9bcb08ef6886799464ae9",
     measurementId: "G-K1LDMLET2Z"
   };
- 
+
 firebase.initializeApp(firebaseConfig);
 
 
