@@ -1,15 +1,14 @@
 <template>
     <div
         class="flex flex-wrap gap-5 h-full bg-gradient-to-tr from-gray-300 to-gray-200 flex justify-center items-center py-20">
-        <div v-for="post in posts" id="haaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-            :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
+        <div v-for="post in posts" :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
             <VDelete @close="DEletepop" @getAllPost="getAllPost" v-if="isDeleted" :id="id" />
             <div
                 class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
                 <div class="flex gap-7 z-20 relative">
-                    <h3 class="mb-3 text-xl font-bold text-indigo-600">Abdessalam Staili</h3>
+                    <h3 class="mb-3 text-xl font-bold text-indigo-600">{{ post.fullName }}</h3>
                     <div>
-                        <div class="group inline-block">
+                        <div v-if="isLogged && post.user_id == user_id" class="group inline-block">
                             <button
                                 class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
                                 <span class="pr-1 font-semibold flex-1">Option</span>
@@ -34,7 +33,7 @@
                     </div>
                 </div>
                 <div class="relative">
-                    <img class="w-full rounded-xl" src="../../assets/back.png" alt="Colors" />
+                    <img class="w-full rounded-xl" :src="`https://firebasestorage.googleapis.com/v0/b/projet1-27e8c.appspot.com/o/images%2F${post.image}.png?alt=media&token=c373e87c-69bc-4f45-aa19-63d56ccfca23`" alt="Colors" />
                     <p
                         class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
                         {{ post.Prix }}$</p>
@@ -50,7 +49,7 @@
                                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </span>
-                        <p>1:34:23 Minutes</p>
+                        <p>{{ post.time }}</p>
                     </div>
                     <div class="flex space-x-1 items-center">
                         <span>
@@ -97,7 +96,6 @@ import Add from "./addOffre.vue";
 import VDelete from "./ValideDelete.vue";
 export default {
     inject: ['setLogin', 'isLogin'],
-
     name: "affich-offre",
     components: {
         VDelete,
@@ -113,6 +111,7 @@ export default {
             isDeleted: false,
             id: null,
             update: false,
+            user_id: localStorage.getItem('id')
         }
     },
     methods: {
@@ -140,12 +139,22 @@ export default {
         DEletepop(isDeleted) {
             this.isDeleted = isDeleted
         },
-
-
         getAllPost() {
             axios.get("http://127.0.0.1:8000/api/getAllPost").then(res => {
                 this.posts = res.data.reverse();
             });
+        },
+        deletePost(ev) {
+            console.log(this.id);
+            axios.delete(`http://127.0.0.1:8000/api/deletPost/${this.id}`)
+                .then(res => {
+                    console.log(res);
+                    this.$emit("getAllPost");
+                    this.close();
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         },
     },
     mounted() {
@@ -166,9 +175,6 @@ export default {
     right: 17px;
     top: 125px;
 }
-
-
-
 
 #button-7 {
     position: relative;

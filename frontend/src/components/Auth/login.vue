@@ -27,7 +27,6 @@
                                 placeholder="Your Password"
                                 class="w-full px-3 py-2 placeholder-gray-300 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-100 focus:border-indigo-300 dark:bg-gray-700 dark:text-white dark:placeholder-gray-500 dark:border-gray-600 dark:focus:ring-gray-900 dark:focus:border-gray-500" />
                         </div>
-
                         <div class="mb-6">
                             <button type="submit"
                                 class="w-full px-3 py-4 text-white bg-gray-700 rounded-md focus:bg-black focus:outline-none">Sign
@@ -64,8 +63,7 @@ export default {
             Axios.post("http://127.0.0.1:8000/api/Login", this.data).then(res => {
                 console.log(res);
                 if (res.status == 200) {
-                    localStorage.setItem("token", res.data.token)
-                    console.log(res.data.token);
+                    localStorage.setItem("token", res.data.token);
                     this.setLogin(true)
                     this.$router.push("/")
                     localStorage.setItem("id",res.data.id)

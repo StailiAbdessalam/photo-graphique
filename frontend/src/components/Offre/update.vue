@@ -118,11 +118,12 @@ import * as fireStorage from "firebase/storage";
 
 export default {
     name: "update-item",
+    props: ["id"],    
     data() {
         return {
             newPost: {
                 user_id: localStorage.getItem("id"),
-                Prix: 0,
+                Prix: '',
                 Title: '',
                 image: '',
                 Type: '',
@@ -130,6 +131,7 @@ export default {
             offre: false,
             imageName: '',
             send: false,
+            ID: this.id,
 
         }
     },
@@ -146,7 +148,7 @@ export default {
             let count = parseInt(document.getElementById('item_count').value);
             if (count > 1) {
                 document.getElementById('item_count').value = count - 1;
-                this.subtotal = count - 1;
+                this.subtotal = count - 1; 
             }
         },
         typefun() {
@@ -160,15 +162,14 @@ export default {
                 let storageRef = fireStorage.ref(fireStorage.getStorage(), "images/" + newname + ".png");
                 const post = this.newPost;
                 await fireStorage.uploadBytes(storageRef, file).then(function () {
-                    console.log("uploaded");
+                    console.log(post);
                 });
-                await axios.put(`http://127.0.0.1:8000/api/UpdatePost/${this.id}`, {
+                console.log(this.ID);
+                await axios.post(`http://127.0.0.1:8000/api/UpdatePost/${this.ID}`, {
                     ...post,
                     image: newname,
-                })
-                this.$emit('close', false);
-                this.send = false
-                // this.$emit("getAllPost");
+                })                
+                this.$emit("getAllPost");
             } catch (e) {
                 console.log(e)
             }

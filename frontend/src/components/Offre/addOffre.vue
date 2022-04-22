@@ -125,7 +125,7 @@ export default {
         return {
             newPost: {
                 user_id: localStorage.getItem("id"),
-                Prix: 0,
+                Prix: '',
                 Title: '',
                 image: '',
                 Type: '',

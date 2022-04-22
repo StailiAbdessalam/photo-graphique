@@ -57,7 +57,7 @@
 
       <!-- Drawer Menu -->
       <aside
-        class="p-5 transform top-0 left-0 w-64 bg-blue-700 fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
+        class="p-5 transform top-0 left-0 w-64 bg-gray-700 fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30"
         :class="isOpen ? 'translate-x-0' : '-translate-x-full'">
         <div class="close">
           <button class="absolute top-0 right-0 mt-4 mr-4" @click="isOpen = false">
@@ -72,18 +72,23 @@
           <li class="my-5 mb-10">
             <img src="../../assets/logo_copy.png" alt="" />
           </li>
-          <li class="border-b-2 rounded-t-md hover:bg-blue-500 ">
+          <li @click="home" class="border-b-2 rounded-t-md hover:bg-blue-500 ">
             <a href="#" @click="isOpen = false" class="block h-full w-full my-4 pt-4 text-white">Accueil</a>
           </li>
-          <li class=" rounded-b-md hover:bg-blue-500">
+          <li @click="demandes" class=" rounded-b-md hover:bg-blue-500">
             <a href="#" @click="isOpen = false" class="block h-full w-full mb-4 py-4 text-white">Poster</a>
           </li>
           <li>
-            <a href="#" @click="isOpen = false"
+            <a href="#" v-if="!isLogged" @click="login"
               class="my-3 mt-8 w-full text-center font-semibold cta inline-block hover:bg-blue-500 px-3 py-2 border rounded text-white">Log
               In</a>
           </li>
-          <li @click="singin">
+          <li>
+            <a href="#" v-if="isLogged" @click="logout"
+              class="my-3 mt-8 w-full text-center font-semibold cta inline-block hover:bg-blue-500 px-3 py-2 border rounded text-white">Log
+              Out</a>
+          </li>
+          <li v-if="!isLogged" @click="singin">
             <a
               class="mb-7 w-full text-center font-semibold cta inline-block bg-white text-blue-500 hover:bg-blue-100 px-3 py-2 rounded">Sign
               Up</a>
