@@ -30,16 +30,10 @@ class PostController extends Controller
         Post::destroy($id);
     }
 
-    public function UpdatePost(Request $request, $id)
+    public function Update(Request $request, $id)
     {
-        $Post = Post::find($id);
-        $Post->user_id = $request->user_id;
-        $Post->Title = $request->Title;
-        $Post->image = $request->image;
-        $Post->Prix = $request->Prix;
-        $Post->Type = $request->Type;
-        $Post->description = $request->description;
-        $result = $Post->save();
-        echo json_encode($result);
+        $post = Post::find($id);
+        $post->update($request->all());
+        return $post;
     }
 }
