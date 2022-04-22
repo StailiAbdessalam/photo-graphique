@@ -47,7 +47,6 @@
           </div>
         </ul>
       </div>
-
       <!-- Dark Background Transition -->
       <transition enter-class="opacity-0" enter-active-class="ease-out transition-medium" enter-to-class="opacity-100"
         leave-class="opacity-100" leave-active-class="ease-out transition-medium" leave-to-class="opacity-0">
