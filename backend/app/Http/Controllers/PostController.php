@@ -8,10 +8,22 @@ use Symfony\Component\VarDumper\VarDumper;
 
 class PostController extends Controller
 {
+
+//function to get all post in tow table
     public function getAll()
     {
-        return  json_encode(Post::all());
+        $data = Post::join('users', 'users.id', '=', 'post.user_id')
+            ->select('post.*', 'users.fullName',)
+            ->get();
+
+            foreach ($data as $post) {
+                $time = $post->created_at->diffForHumans();
+                $post->created_at = $time;
+                $post->time =$time;
+            }
+            return json_encode($data);
     }
+
     public function Add(Request $request)
     {
 
