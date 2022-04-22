@@ -25,4 +25,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  Route::get('getAllPost',[PostController::class,'getAll']);
  Route::post('AddPost',[PostController::class,'Add']);
  Route::delete('deletPost/{id}',[PostController::class,'delete']);
- Route::put('UpdatePost/{id}',[PostController::class,'UpdatePost']);
+ Route::post('UpdatePost/{id}',[PostController::class,'Update']);
