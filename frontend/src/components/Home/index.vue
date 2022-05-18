@@ -2,7 +2,7 @@
 
     <div class="home">
         <div class="w-full h-full  ">
-            <div class="flex bg-gradient-to-tr from-gray-300 to-gray-200" style="height:630px;">
+            <div class="flex bg-gradient-to-tr from-gray-300 to-gray-200" style="height:690px;">
                 <div class="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
                     <div>
                         <h2 class="text-3xl font-semibold text-gray-800 md:text-4xl">Acheté tout les materiales de <span

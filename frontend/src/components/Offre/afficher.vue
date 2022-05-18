@@ -65,6 +65,70 @@
                         Lesson</button>
                 </div>
             </div>
+        </div><div v-for="post in posts" :key="post.id" class="md:px-4 mt-8 gap-5  space-y-4 md:space-y-0">
+            <VDelete @close="DEletepop" @getAllPost="getAllPost" v-if="isDeleted" :id="id" />
+            <div
+                class="max-w-sm   bg-white px-6 pt-9 pb-2 rounded-xl shadow-lg transform hover:scale-105 transition duration-500">
+                <div class="flex gap-7 z-20 relative">
+                    <h3 class="mb-3 text-xl font-bold text-indigo-600">{{ post.fullName }}</h3>
+                    <div>
+                        <div v-if="isLogged && post.user_id == user_id" class="group inline-block">
+                            <button
+                                class="outline-none focus:outline-none border px-3 py-1 bg-white rounded-sm flex items-center min-w-32">
+                                <span class="pr-1 font-semibold flex-1">Option</span>
+                                <span>
+                                    <svg class="fill-current h-4 w-4 transform group-hover:-rotate-180
+        transition duration-150 ease-in-out" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                        <path
+                                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <ul class="bg-white border rounded-sm transform scale-0 group-hover:scale-100 absolute 
+  transition duration-150 ease-in-out origin-top min-w-32">
+                                <li @click="popUpUpdate(post.id)" class="rounded-sm px-3 py-1 hover:bg-gray-100">
+                                    Modifier</li>
+                                <li @click="popUpDelete(post.id)" class="rounded-sm px-3 py-1 hover:bg-gray-100">
+                                    Supprimer</li>
+                                <li class="rounded-sm relative px-3 py-1 hover:bg-gray-100">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <img class="w-full rounded-xl" :src="`https://firebasestorage.googleapis.com/v0/b/projet1-27e8c.appspot.com/o/images%2F${post.image}.png?alt=media&token=c373e87c-69bc-4f45-aa19-63d56ccfca23`" alt="Colors" />
+                    <p
+                        class="absolute top-0 bg-yellow-300 text-gray-800 font-semibold py-1 px-3 rounded-br-lg rounded-tl-lg">
+                        {{ post.Prix }}$</p>
+                </div>
+                <h4 class="mt-4 text-gray-800 text-2xl font-bold cursor-pointer">{{ post.Title }}: <br> <span
+                        class="font-normal">{{ post.description }}</span> </h4>
+                <div class="my-4">
+                    <div class="flex space-x-1 items-center">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 mb-1.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </span>
+                        <p>{{ post.time }}</p>
+                    </div>
+                    <div class="flex space-x-1 items-center">
+                        <span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 mb-1.5" fill="none"
+                                viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </span>
+                        <p>{{ post.Type }}</p>
+                    </div>
+                    <button class="mt-4 text-xl w-full text-white bg-gray-600 py-2 rounded-xl shadow-lg">Buy
+                        Lesson</button>
+                </div>
+            </div>
         </div>
         <div @click="affich" v-if="isLogged" class="fixed right-1 top-20">
             <div class="m-3">
