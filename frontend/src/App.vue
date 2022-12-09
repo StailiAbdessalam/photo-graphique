@@ -33,7 +33,6 @@ export default {
     return {
       isLogin: computed(() => this.isLogin),
       setLogin: this.setLogin,
-
     }
   },
   mounted() {
@@ -43,6 +42,6 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="scss">
+@import "./styles/carbon";
 </style>

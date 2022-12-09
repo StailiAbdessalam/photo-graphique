@@ -1,6 +1,6 @@
 <template>
     <div>
-        <register/>
+        <register class="mt-auto"/>
     </div>
 </template>
 

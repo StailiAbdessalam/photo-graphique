@@ -2,6 +2,7 @@ import { createApp } from "vue";
 import router from "./router/index";
 import App from "./App.vue";
 import Vue3Lottie from "vue3-lottie";
+import CarbonComponentsVue from "@carbon/vue";
 import "./index.css";
 
 
@@ -22,6 +23,4 @@ export const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-
-
-createApp(App).use(router).use(Vue3Lottie).mount("#app");
+createApp(App).use(router).use(Vue3Lottie).use(CarbonComponentsVue).mount("#app");

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex items-center min-h-screen bg-white dark:bg-gray-900">
-            <div class="container mx-auto">
+            <div class="container mx-auto mt-auto">
                 <Erour :message="newUser.email" v-if="valide === false" />
                 <div class="max-w-md mx-auto my-10">
                     <div class="text-center">
@@ -10,7 +10,7 @@
                     </div>
                     <div class="m-7">
 
-                        <form action="" @submit.prevent="AddUser">
+                        <form method="post" action="" @submit.prevent="AddUser">
                             <div class="mb-6">
                                 <label for="fullname" class="block mb-2 text-sm text-gray-600 dark:text-gray-400">Full
                                     name

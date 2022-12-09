@@ -2,7 +2,7 @@
     <div class="flex items-center min-h-screen bg-white dark:bg-gray-900">
         <div class="container mx-auto">
             <!-- <Secss/> -->
-            <div class="max-w-md mx-auto my-10">
+            <div class="max-w-md mx-auto my-10 mt-auto">
                 <div class="text-center">
                     <h1 class="my-3 text-3xl font-semibold text-gray-700 dark:text-gray-200">Sign in</h1>
                     <p class="text-gray-500 dark:text-gray-400">Sign in to access your account</p>
